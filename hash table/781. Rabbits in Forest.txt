@@ -1,0 +1,22 @@
+class Solution {
+    public int numRabbits(int[] answers) {
+        MapInteger,Integer map = new HashMap();
+        int sum = 0;
+        for(int each  answers){
+            if(each == 0){
+                sum++;
+                continue;
+            }
+            if(!map.containsKey(each)){
+                map.put(each,0);
+                sum = sum + (each+1);
+            }else{
+                map.put(each,map.get(each) +1 );
+                if(map.get(each) == each){
+                    map.remove(each);
+                }
+            }
+        }
+        return sum;
+    }
+}

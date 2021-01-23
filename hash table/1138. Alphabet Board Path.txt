@@ -1,0 +1,33 @@
+class Solution {
+    public String alphabetBoardPath(String target) {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0 , curren_row = 0, curren_col = 0 ; i < target.length() ; i++){
+            int letter = target.charAt(i) - 'a';
+            int row = letter / 5;
+            int col = letter % 5;
+            
+            while(curren_row > row ){
+                sb.append('U');
+                curren_row--;
+            }
+            while(curren_col > col ){
+                
+                sb.append('L');
+                curren_col--;
+            }
+            while(curren_row < row ){
+                
+                sb.append('D');
+                curren_row++;
+            }
+            while(curren_col < col ){
+                
+                sb.append('R');
+                curren_col++;
+            }
+            
+            sb.append('!');
+        }
+        return sb.toString();
+    }
+}

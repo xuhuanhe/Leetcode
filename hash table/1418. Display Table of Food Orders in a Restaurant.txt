@@ -1,0 +1,41 @@
+class Solution {
+    public List<List<String>> displayTable(List<List<String>> orders) {
+        TreeMap <Integer, Map<String,Integer>> map = new TreeMap<>();
+        TreeSet <String> set = new TreeSet<>();
+        List<List<String>> result = new ArrayList<>();
+        List<String> first_row = new ArrayList<>();
+        first_row.add("Table");
+        for(List<String> each : orders){
+            String dish = each.get(2);
+            set.add(dish);
+            Integer table = Integer.parseInt(each.get(1));
+            map.putIfAbsent(table,new TreeMap<>());
+            if(!map.get(table).containsKey(dish)){
+                map.get(table).put(dish,1);
+            }else{
+                map.get(table).put(dish,map.get(table).get(dish) + 1);
+            }
+        }
+        first_row.addAll(set);
+        result.add(first_row);
+        for( Map.Entry<Integer,Map<String,Integer>> entry: map.entrySet()){
+            List<String> list = new ArrayList<>();
+            String table = Integer.toString(entry.getKey());
+            list.add(table);
+            for(String each : set){
+                if(map.get(entry.getKey()).containsKey(each)){
+                    list.add(Integer.toString(map.get(entry.getKey()).get(each)));
+                }else{
+                    list.add("0");
+                }
+            }
+            
+            result.add(list);
+        }
+        
+        
+        
+        return result;
+        
+    }
+}

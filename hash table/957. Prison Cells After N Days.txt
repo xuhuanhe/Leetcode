@@ -1,0 +1,16 @@
+class Solution {
+	public int[] prisonAfterNDays(int[] cells, int N) {
+		N = N % 14 == 0 ? 14 : N % 14; // AFter every 14 days cells will repeat.
+		for (int i = 0; i < N; i++) {
+			int[]next = new int[cells.length];
+			for (int j = 1; j < cells.length - 1; j++) {
+				if (cells[j - 1] == cells[j + 1]) {
+					next[j] = 1;
+				} else
+					next[j] = 0;
+			}
+            cells = next;
+		}
+		return cells;
+	}
+}

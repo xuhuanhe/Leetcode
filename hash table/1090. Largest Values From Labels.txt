@@ -1,0 +1,27 @@
+class Solution {
+    public int largestValsFromLabels(int[] values, int[] labels, int num_wanted, int use_limit) {
+        int vl [][] = new int [values.length][2];
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i = 0 ; i < values.length ; i++){
+            vl[i][0] = values[i];
+            vl[i][1] = labels[i];
+            map.put(labels[i] , 0);
+        }
+        Arrays.sort(vl,new Comparator<int []>(){
+            public int compare(final int entry1[],final int entry2[]){
+                return entry2[0] - entry1[0];
+            }
+        });
+        int sum = 0;
+        for(int i = 0 ; i < values.length ; i++){
+            int val = vl[i][0];
+            int lab = vl[i][1];
+            if(num_wanted > 0 && map.get(lab) < use_limit){
+                map.put(lab,map.get(lab) + 1);
+                sum = sum + val;
+                num_wanted--;
+            }  
+        }
+        return sum;
+    }
+}

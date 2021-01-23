@@ -1,0 +1,59 @@
+class Solution {
+    Set<String> words_perfect;
+    Map<String, String> words_cap;
+    Map<String, String> words_vow;
+
+    public String[] spellchecker(String[] wordlist, String[] queries) {
+        words_perfect = new HashSet<>();
+        words_cap = new HashMap<>();
+        words_vow = new HashMap<>();
+        
+        for(int i = 0 ; i < wordlist.length ; i++){
+            words_perfect.add(wordlist[i]);
+            
+            String low = wordlist[i].toLowerCase();
+            words_cap.putIfAbsent(low, wordlist[i]);
+            
+            String low_vowel = devowel(low);
+            words_vow.putIfAbsent(low_vowel,wordlist[i]);
+        }
+        String ans[] = new String[queries.length];
+        int index = 0;
+        for(String each: queries){
+            ans[index++] = slove(each);
+        }
+        
+        return ans;
+    }
+    public String slove(String each){
+        if(words_perfect.contains(each))
+            return each;
+        
+        String low = each.toLowerCase();
+        if(words_cap.containsKey(low))
+            return words_cap.get(low);
+        
+        String low_vowel = devowel(low);
+        if(words_vow.containsKey(low_vowel))
+            return words_vow.get(low_vowel);
+        
+        return "";
+    }
+    public String devowel (String s){
+        StringBuilder sb = new StringBuilder();
+        for(char c : s.toCharArray()){
+            if(isVowel(c)){
+                sb.append("*");
+            }else{
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+    public boolean isVowel(char c){
+        if(c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
+            return true;
+        else return false;
+    }
+    
+}

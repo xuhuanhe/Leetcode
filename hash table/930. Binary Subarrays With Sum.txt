@@ -1,0 +1,18 @@
+class Solution {
+    public int numSubarraysWithSum(int[] A, int S) {
+        int res = 0;
+        int preSum = 0;
+        Map<Integer, Integer> map = new HashMap<>(); // key is preSum and value is the frequency of this sum.
+        for ( int i = 0; i < A.length; i++ ) {
+            preSum = preSum + A[i];    
+            int key = preSum - S;
+            if ( map.containsKey(key) ) {
+                res = res + map.get(key);
+            }
+            map.put(preSum, map.getOrDefault(preSum, 0) + 1);
+            if ( preSum == S ) 
+                res++;
+        }
+        return res;
+    }
+}

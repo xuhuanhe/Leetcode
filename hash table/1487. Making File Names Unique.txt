@@ -1,0 +1,28 @@
+class Solution {
+    public String[] getFolderNames(String[] names) {
+        LinkedHashMap<String,Integer> map = new LinkedHashMap<>();
+        for(String each : names){
+            if(!map.containsKey(each)){
+                map.put(each,1);
+            }else{
+                int count = map.get(each);
+                while(true){
+                    String temp = each + "(" + count + ")";
+                    if(!map.containsKey(temp)){
+                        map.put(temp,1);
+                        map.put(each,count++);
+                        break;
+                    }else{
+                        count++;
+                    }
+                }
+            }
+        }
+        String result[] = new String[names.length];
+        int i = 0;
+        for(String a : map.keySet()){
+            result[i++] = a;
+        }
+        return result;
+    }
+}
